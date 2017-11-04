@@ -1,0 +1,304 @@
+# Icke-officiell errata för P!M 171029
+Synpunkter på och (icke-officiella) rättelser till e-boken "P!M Programmera i matematik -- 
+Att använda programmering som ett verktyg i matematikundervisningen i årskurs 7-9" (pim171029.pdf) av Staffan Melin.  
+Hittills baserat på kapitel 1-5 och 10.  
+Släppt under CC Erkännande-DelaLika 4.0 Internationell (CC BY-SA 4.0).  
+Länk: http://oscillator.se/skola#pim  
+Direktlänk: http://oscillator.se/sites/default/files/skola/pim171029.pdf
+
+Det verkar som om Python i [trinket.io](https://trinket.io/)-konsolen är Python3, ty den svarar på samma sätt som
+python3 i Ubuntu 16.04 GNU/Linux.
+Python (d.v.s. python2) i Ubuntu svarar på samma sätt som bokens exempel. Dock skriver konsolen i trinket.io ut som python2 när
+det gäller print() med flera argument. Man borde använda python3 för kapitel 3, men notera skillnader gentemot trinket.io-Python.
+Nu finns även trinket.io-Python3, men det verkar inte ha lika många moduler.
+
+Exempel på sidan 12 borde vara
+```
+>>> 6/2  
+3.0  
+>>> 8/4  
+2.0
+```
+
+Diskuterar inte associativitet nu på sidan 13, men ** har höger till vänster, men - och förmodligen +, * , /, // och % har vänster till höger.  
+```
+>>> 2**3**4
+2417851639229258349412352
+>>> (2**3)**4
+4096
+>>> 2**(3**4)
+2417851639229258349412352
+>>> 10-4-2
+4
+>>> (10-4)-2
+4
+>>> 10-(4-2)
+8
+```
+
+Mitt på sidan 14 är ett fel, men man kan skriva liknande i Trinket om man trycker Skift+Enter:
+```
+>>> antal_applen=4 
+... antal_paron=antal_applen 
+... antal_frukter=antal_applen+antal_paron
+```
+Borde stå "fysikaliska formeln" i stället för "fysikaliska formen".
+
+En avvikelse i trinket.io jämfört med python3: Det blir utan enkelcitat:
+```
+>>> a+b+c+d
+matematik
+```
+
+Det nämns inte att + för strängar slår ihop (konkatenerar).
+
+Det går inte att skriva hakparenteser eller krulliga parenteser i trinket.io-konsolen i Chrome i Windows 10
+(nuvarande versioner) om man har svenskt tangentbord (SWE). Ett sätt att kringgå buggen är att klistra in [] 
+eller {} eller byta till amerikanskt tangentbord (ENG). Det går att skriva {[]} i redigeraren i samma system.
+{[]} fungerar i trinket.io-konsolen i Chromium i Lubuntu 16.04 på Raspberry Pi med danskt tangentbord.
+
+Mitt på sidan 16 borde det kanske stå:
+```
+>>> d=int(c)
+>>> d
+0
+```
+
+Samma fel längre ner.
+
+Bugg i trinket.io-Python:
+```
+>>> round(1/2)
+1.0
+```
+
+python2 i Ubuntu:
+```
+>>> round(1/2)
+0.0
+```
+
+python3 i Ubuntu och trinket.io-Python3:
+```
+>>> round(1/2)
+0
+```
+
+Detta borde noteras.
+
+Överst på sidan 19 är ett dubbelcitat missat (samma fel i nästa två exempel och på sidan 5) och två dubbelcitat av fel sort 
+(” i stället för ").  
+Rättat:
+```
+a = int(input("Skriv in ett tal mellan 1 och 10:"))
+if a > 5:
+    print("Du skrev in talet", a)
+    print("Talet är större än 5!")
+```
+
+Detta exempel från sidan 27 ger en viss utskrift: 
+```
+for tal in range(1, 50):
+    print(tal * 2)
+```
+
+Men då måste man ändra nästa exempel till t.ex. följande för att det skall skriva ut samma:
+```
+tal = 2
+while tal < 100:
+  print(tal)
+  tal = tal + 2
+```
+
+Slumptal behövs redan på sidan 29 i *Projekt: Gissa faktorer*, men gås igenom först på sidan 36.
+
+På sidan 30 problem 1 behövs nog `not` eller `!=` eller `<>`, men dessa gås inte igenom förrän senare, men en lösning med
+kunskaperna hittills är:
+```
+for tal in range(1, 100):
+    kvot = tal / 2
+    if kvot < int(kvot) or kvot > int(kvot):
+        print(tal)
+```     
+
+*råstyrkemetoden* i stället för *råstyrka-metoden*.
+
+På sidan 32 behöver man ändra programmet lite för att kunna faktorisera alla tal, d.v.s. även primtal (även om faktorn 1 är triviell):
+```
+tal = 56
+for faktor1 in range(1, tal):
+    for faktor2 in range (faktor1, tal+1):
+        if tal == faktor1 * faktor2:
+            print(faktor1, faktor2)
+```
+
+På sidan 35 gäller att `range()` redan går igenom t.o.m. tal-1 så om man skriver `tal-1` som övre gräns så blir det t.o.m. tal-2.
+Alltså borde exemplet ändras till:
+```
+def primtal(tal):
+    for i in range(2, tal):
+        if tal % i == 0:
+            return False
+    return True
+```
+Dock fungerar `tal-1` som övre gräns, ty det fungerar med `int(math.sqrt(tal))+1` för tal=4.
+
+Variabeln `mitt_tal` används inte i originalet, men fixat här:
+```  
+mitt_tal = 47
+ar_tal_primtal = primtal(mitt_tal)
+if ar_tal_primtal:
+    print(mitt_tal, "är ett primtal")
+else:
+    print(mitt_tal, "är inte ett primtal")
+```
+
+På sidan 37 ska det vara "större delen av världen" i stället för "större delen av värden".  
+"4711 = 4 · 1000 + 7 · 100 + 11 · 10 + 1" i stället för "4711 = 4 · 1000 + 7 · 100 + 11 · 10 + 11".  
+"4711 = 4 · 10<sup>3</sup> + 7 · 10<sup>2</sup> + 11 · 10<sup>1</sup> + 1 · 10<sup>0</sup>" i stället för "4711 = 4 · 10<sup>3</sup> + 7 · 10<sup>2</sup> + 11 · 10<sup>1</sup> + 11 · 10<sup>0</sup>".
+
+På sidan 40 bör det vara "differensen" i stället för "summan" i 
+"Alla jämna tal är en aritmetisk talföljd eftersom summan mellan två tal alltid är konstant."
+
+På sidan 41 bör det vara 'stämmer (”True”) eller inte stämmer (”False”)' i stället för 'stämmer (”true”) eller inte stämmer (”false”)'.
+
+På sidan 44 bör det vara
+```
+def minTalfoljd():
+    # kod som skriver ut talföljden
+def ingarIMinTalfoljd(tal):
+    if # test för att se om värdet på variabeln tal ingår i talföljden:
+        return True
+    else:
+        return False
+```
+
+På sidan 45, uppgift 2 behöver man inbyggd `gcd()`, men den fungerar inte i trinket.io, men fungerar i python3 i Ubuntu 16.04:
+```
+import math
+print(math.gcd(15, 6))
+```
+
+Sidan 47:  
+Det bör stå "gissa ett tal mellan 1 och 100" i stället för "gissa ett tal mellan 0 och 99".
+
+`print("Du gissade för lågt!")` har ett felaktigt dubbelcitat i höger ände.
+
+Sidan 49:  
+Det bör stå "ta allt som står i HL och dra ifrån det i VL" i stället för "ta allt som står i HL och dra ifrån det i HL".
+
+Sidan 94:  
+Det bör stå "else:" i stället för "else".
+
+Sidan 95:  
+`def primtal(x)` bör ändras till
+```
+def primtal(x):
+    for i in range(2, x - 1):
+        if x % i == 0:
+            return False
+    return True
+```
+eller
+```
+def primtal(x):
+    for i in range(2, x):
+        if x % i == 0:
+            return False
+    return True
+```
+
+Sidan 98:  
+"även med funktioner" i övre programmet borde tas bort.
+
+Sidan 99:
+Detta är kanske en bättre webbsida för `turtle.color()`: https://trinket.io/docs/colors.
+
+Sidan 100:  
+Länken https://docs.python.org/2/tutorial/datastructures.html borde kanske vara https://docs.python.org/3/tutorial/datastructures.html.
+Idé: Man borde kanske jämföra dessa operationer med listoperationerna i Scratch 2, ty de flesta eleverna kan förhoppningsvis Scratch 2
+innan de börjar med Python 3.
+
+Sidan 101:
+Indentering har försvunnit -- bör vara:
+```
+>>> for punkt in graf: 
+...   x = punkt[0] 
+...   y = punkt[1] 
+...   print(x,y)
+```
+
+Sidan 106:
+När man använder fibonacci med ett argument t.ex. `fib(7)` tror jag oftast man vill ha det 7:e Fibonacci-talet.
+Jag har anpassat funktionerna så att de gör det. Två kommer från https://stackoverflow.com/questions/13826810/fast-fibonacci-recursion.
+Jag använder 2 mellanslag för indent, ty det är standard i trinket.io.
+
+```
+#!/bin/python3
+n = 9
+
+def fib(num):
+  a = 0
+  b = 1
+  i = 0
+  while i < num:
+    a_prev = a
+    a = b
+    b = a_prev + b
+    i = i + 1
+  return a
+  
+print(fib(n))
+
+def pythonic_fib(num):
+  a, b = 0, 1
+  i = 0
+  while i < num:
+    a, b, i = b, a + b, i + 1
+  return a
+
+print(pythonic_fib(n))
+
+def recursive_fib(num):
+  if num == 0:
+    return 0
+  elif num == 1:
+    return 1;
+  else:
+    return recursive_fib(num - 1) + recursive_fib(num - 2)
+    
+print(recursive_fib(n))
+
+def tail_recursive_fib(num, a = 0, b = 1):
+  if num == 0:
+    return a
+  if num == 1:
+    return b
+  return tail_recursive_fib(num - 1, b, a + b);
+  
+print(tail_recursive_fib(n))
+
+results = {0:0, 1:1}
+
+def memoization_fib(num):
+  if num not in results:
+    results[num] = memoization_fib(num-1) + memoization_fib(num-2)
+  return results[num]
+  
+print(memoization_fib(n))
+
+print(results)
+```
+
+Sidan 60:   
+Attributet colormode finns ej i Turtle eller Screen, men det fungerar som om det är satt till 255 och ej 1.0 vilket boken förutsätter. 
+Man måste alltså multiplicera alla RGB-värden med 255.
+
+```
+padda.color(255*1, 255*0.5, 0)
+```
+
+```
+padda.pencolor(255*b/100, 255*(1-b/100), 0)
+padda.fillcolor(255*(1-b/100), 255*b/100, 0)
+```
